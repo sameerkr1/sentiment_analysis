@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>sentiment analysis</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="style1.css">
+
+    </head>
+    <body style="background-color:#D8BFD8" >
+
+        <div class="container">
+        <div class="jumbotron" style="text-align: center;">
+            <h1 style="color: crimson;">Sentiment analysis</h1>
+            <h2 style="font-family: 'Courgette', cursive;">Choose the product you want to rate...</h2>
+            <div class="col-sm-12">
+            </div>
+            </div>
+          </div>
+
+
+          <div class="container">
+            <div class="jumbotron" style="text-align: center">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        {% for pid in products %}
+                        <th>{{ products[pid]['product_name'] }}</th>
+                        {% endfor %}
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          {% for pid in products %}
+                            <td>
+                                <div class="row">
+                                    <!-- <div class="col-sm-6 col-md-4"> -->
+                                      <!-- <div class="thumbnail"> -->
+                                        <img src="{{ products[pid]['product_img'] }}" alt="watch image"  height= "120px"  width= "150px">
+                                        <p></p><a href="/product/{{pid}}"><button type="button" class="btn btn-warning">submit</button></a></p>
+                                        <div class="caption">
+                                          <h3>Average Reviews: {{ products[pid]['avg_review'] }}</h3>
+                                          <h3>User count: {{ products[pid]['review'] | length }}</h3>
+                                        </div>
+                                      </div>
+                                    <!-- </div> -->
+                                  <!-- </div> -->
+                            </td>
+                            {% endfor %}
+                            
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+
+    </body>
+</html>

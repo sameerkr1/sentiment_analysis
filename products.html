@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<style media="screen">
+
+ h3 {
+      font-family: 'Sriracha', cursive;
+  }
+
+h2 {
+      /* color: #8B008B; */
+      color: #2F4F4F;
+      font-family: 'Sriracha', cursive;
+   }
+
+textarea {
+  border-radius: 5px;
+}
+</style>
+
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Sriracha&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+  </head>
+
+  <body style="background-color:#D8BFD8">
+    <p></p>
+    <p></p>
+
+    <h2 style="font-size: 40px;">{{product['product_name']}}:</h2>
+
+    <a href="/">Back</a>
+    <div class="container">
+      <div class="jumbotron" style="text-align: left;">
+        <h3>Write Your review here:</h3><br>
+        <form action="/product/{{pid}}" method="POST">
+          <textarea rows="8" cols="80" placeholder="enter your review" name="inputA"></textarea>
+          <p><a href="/product"></a><button type="submit" class="btn btn-success" name="button">submit</button></p> 
+          <!-- <p></p><a href="productA.html" target="_blank"><button type="button" class="btn btn-warning">submit</button></a></p> -->
+        </form>
+        <hr>
+        <div class="container">
+          <div class="jumbotron" style="text-align: center">
+
+            {% if product['review'] | length > 0 %}
+              <p>Review: {{review}}</p>
+            {% endif %}
+            
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th>Sentiment</th>
+                      <th>Rating</th>
+                      <th>Star</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      {% for review in product['review'] %}
+                      <tr>
+                          <td>{{review['description']}}</td>
+                          <td>{{review['sentiment']}}</td>
+                          <td>{{ review['rating'] }}</td>
+                          <td>
+                              {% for i in range(1, 6) %}
+                                  {% if i <= int(review['rating']) %}
+                                      <span class="glyphicon glyphicon-star"></span>
+                                  {% else %}
+                                      <span class="glyphicon glyphicon-star-empty"></span>
+                                  {% endif %}
+                              {% endfor %}
+                          </td>
+                      </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+
+          </div>
+      </div>
+      </div>
+
+    </div>
+
+
+
+  </body>
+</html>
